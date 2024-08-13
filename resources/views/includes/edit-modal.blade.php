@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div data-twe-modal-init
-    class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="postModal"
-    tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="editModal"
+    tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div data-twe-modal-dialog-ref
         class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[0px]:m-0 min-[0px]:h-full min-[0px]:max-w-none">
         <div
@@ -9,8 +9,8 @@
             <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10 min-[0px]:rounded-none">
                 <!-- Modal title -->
-                <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="postModalLabel">
-                    Post Your Thoughts...
+                <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="editModalLabel">
+                    Edit Your Post
                 </h5>
                 <!-- Close button -->
                 <button type="button"
@@ -24,8 +24,8 @@
                     </span>
                 </button>
             </div>
-            <form class="relative p-4 min-[0px]:overflow-y-auto" id="postForm" method="POST"
-                action="{{ route('post.store') }}" enctype="multipart/form-data">
+            <form class="relative p-4 min-[0px]:overflow-y-auto" id="editForm" method="POST"
+                action="{{ route('post.update', $post->slug) }}" enctype="multipart/form-data">
                 @csrf
                 <!-- Modal body -->
                 <div class="relative p-4 min-[0px]:overflow-y-auto">
@@ -37,7 +37,9 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}"
+                                    {{ $category->id == $post->category_id ? 'selected' : '' }}>{{ $category->name }}
+                                </option>
                             @endforeach
 
                         </select>
@@ -47,7 +49,8 @@
                         <label for="base-input"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                         <input type="text" id="base-input" name="title"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            value="{{ $post->title }}">
                     </div>
 
                     <div class="mb-5">
@@ -55,7 +58,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summary</label>
                         <textarea id="summary" rows="3" name="summary"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Leave a comment..."></textarea>
+                            placeholder="Leave a comment...">{{ $post->summary }}</textarea>
                     </div>
 
                     <div class="mb-5">
@@ -63,7 +66,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                         <textarea id="description" rows="4" name="description"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Leave a comment..."></textarea>
+                            placeholder="Leave a comment...">{{ $post->description }}</textarea>
                     </div>
 
                     <div class="mb-5">
@@ -81,7 +84,8 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
                             Description</label>
                         <input type="text" id="image_description" name="image_description"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            value="{{ $post->image_description }}">
                     </div>
 
                     <h1 class="text-3xl">Featured Images</h1>
@@ -95,8 +99,8 @@
                                     aria-describedby="featured_image_help" type="file">
                             </div>
                         </div>
-                        <button type="button" id="add-file-input"
-                            class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-4">
+                        <button type="button" id="add-file-input-edit"
+                            class="bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-4">
                             Add More Files
                         </button>
                         <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="featured_image_help">Upload
@@ -113,7 +117,7 @@
 
                     <button type="submit" id="submit-btn"
                         class="inline-block mr-5 rounded bg-blue-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400">
-                        POST
+                        SAVE
                     </button>
 
                     <button type="button" id="cancel-btn"
@@ -128,7 +132,7 @@
 </div>
 
 <script>
-    document.getElementById('add-file-input').addEventListener('click', function() {
+    document.getElementById('add-file-input-edit').addEventListener('click', function() {
         var newFileInput = document.createElement('div');
         newFileInput.classList.add('file-input-wrapper', 'mb-2');
         newFileInput.innerHTML = `
@@ -142,13 +146,48 @@
 </script>
 
 <script type="text/javascript">
+    function fetchPostDetails(postId) {
+        $.ajax({
+            url: '{{ url('/post') }}/' + postId + '/details',
+            method: 'GET',
+            success: function(response) {
+                $('#post-image').attr('src', '{{ asset('storage') }}/' + response.post.image);
+                $('#post-image-link').attr('href', '{{ url('/post') }}/' + response.post.slug);
+
+                $('#post-category-link').attr('href', '{{ url('/categories') }}/' + response.category
+                .slug);
+                $('#post-category-link').text(response.category.name);
+
+                $('#post-title-link').attr('href', '{{ url('/post') }}/' + response.post.slug);
+                $('#post-title-link').text(response.post.title);
+
+                $('#post-author-link').text(response.user.name);
+                $('#post-author-info').html(
+                    'By <a href="#" id="post-author-link" class="font-semibold hover:text-gray-800">' +
+                    response.user.name + '</a>, Published on ' + new Date(response.post.created_at)
+                    .toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    }));
+
+                $('#post-summary').text(response.post.summary);
+
+                $('#post-description').html(response.post.description);
+            },
+            error: function(xhr) {
+                console.error('Error fetching post details:', xhr);
+            }
+        });
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    $('#postForm').submit(function(e) {
+    $('#editForm').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
 
@@ -165,17 +204,10 @@
                 if (response.success) {
                     toastr.success(response.message);
 
+                    fetchPostDetails({{ $post->id }});
+
                     setTimeout(function() {
-                        $('#postForm')[0].reset();
                         $('#cancel-btn').click();
-
-                        @if (Route::currentRouteName() == 'home')
-                            $('#posts-container').empty();
-                            currentPage = 1;
-                            loading = false;
-
-                            fetchPosts();
-                        @endif
                     }, 2000);
                 } else {
                     $.each(response.errors, function(key, value) {

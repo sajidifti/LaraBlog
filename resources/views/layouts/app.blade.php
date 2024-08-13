@@ -29,6 +29,84 @@
     <!-- toastr -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        @if (Route::currentRouteName() == 'home')
+            var currentPage = 1;
+            var loading = false;
+
+            function fetchPosts(page = 1) {
+                if (loading) return;
+                loading = true;
+
+                $.ajax({
+                    url: '{{ route('posts.fetch') }}',
+                    method: 'GET',
+                    data: {
+                        page: page
+                    },
+                    success: function(response) {
+                        if (response.posts.data.length === 0 && currentPage === 1) {
+                            $('#posts-container').html('<p>You have no posts. Create one.</p>');
+                            $('#load-more').hide();
+                            loading = false;
+                            return;
+                        } else if (response.posts.data.length === 0) {
+                            $('#load-more').hide();
+                            loading = false;
+                            return;
+                        }
+
+                        var postsHtml = '';
+                        response.posts.data.forEach(function(post) {
+                            postsHtml += `
+                                <article class="w-full md:w-[calc(50%-1rem)] flex flex-col shadow my-4">
+                                    <a href="/post/${post.slug}" class="hover:opacity-75">
+                                        <img src="/storage/${post.image}" class="w-full h-auto">
+                                    </a>
+                                    <div class="bg-white flex flex-col justify-start p-6">
+                                        <a href="/categories/${post.category.slug}"
+                                            class="text-blue-700 text-sm font-bold uppercase pb-4">${post.category.name}</a>
+                                        <a href="/post/${post.slug}"
+                                            class="text-3xl font-bold hover:text-gray-700 pb-4">${post.title.length > 20 ? post.title.slice(0, 20) + '...' : post.title}</a>
+                                        <p class="text-sm pb-3">
+                                            By <a href="#" class="font-semibold hover:text-gray-800">${post.user.name}</a>,
+                                            Published on ${new Date(post.created_at).toLocaleDateString()}
+                                        </p>
+                                        <a href="/post/${post.slug}"
+                                            class="pb-6">${post.summary.length > 50 ? post.summary.slice(0, 50) + '...' : post.summary}
+                                        </a>
+                                        <a href="/post/${post.slug}"
+                                            class="uppercase text-gray-800 hover:text-black">Continue Reading
+                                            <i class="fas fa-arrow-right"></i></a>
+                                    </div>
+                                </article>
+                            `;
+                        });
+
+                        $('#posts-container').append(postsHtml);
+                        currentPage++;
+                        loading = false;
+                    }
+                });
+            }
+
+            $(window).on('pageshow', function(event) {
+                if (event.originalEvent.persisted) {
+                    $('#posts-container').empty();
+                    $('#load-more').show();
+                    currentPage = 1;
+                    fetchPosts();
+                }
+            });
+
+            fetchPosts();
+        @endif
+    </script>
+
 </head>
 
 <body class="bg-white font-family-karla">

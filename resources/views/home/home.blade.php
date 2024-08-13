@@ -14,7 +14,7 @@
         <!-- Load More -->
         <div class="w-full flex flex-col items-center">
             <div class="flex items-center py-8">
-                <a id="load-more" href="#"
+                <a id="load-more" href="javascript:void(0);"
                     class="h-10 w-[15rem] bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center">
                     Load More <i class="fas fa-redo ml-2"></i>
                 </a>
@@ -25,7 +25,19 @@
 
 @endsection
 @section('sidebar')
-    @include('includes.sidebar')
+    @guest
+        @include('includes.login-sidebar')
+    @endguest
+
+    @auth
+        @include('includes.profile-sidebar')
+    @endauth
 @endsection
 @push('js')
+    <script>
+        $('#load-more').on('click', function(e) {
+            e.preventDefault();
+            fetchPosts(currentPage);
+        });
+    </script>
 @endpush

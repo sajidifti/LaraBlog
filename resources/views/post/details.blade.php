@@ -10,28 +10,30 @@
 
         <article class="flex flex-col shadow my-4">
             <!-- Article Image -->
-            <a href="#" class="hover:opacity-75">
-                <img src="{{ asset('storage/' . $post->image) }}">
+            <a href="#" id="post-image-link" class="hover:opacity-75">
+                <img src="{{ asset('storage/' . $post->image) }}" id="post-image">
             </a>
             <div class="bg-white flex flex-col justify-start p-6">
-                <a href="{{ route('category.show', $post->category->slug) }}"
+                <a href="{{ route('category.show', $post->category->slug) }}" id="post-category-link"
                     class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>
-                <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
-                <p href="#" class="text-sm pb-8">
-                    By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>, Published on
+                <a href="#" id="post-title-link"
+                    class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
+                <p id="post-author-info" class="text-sm pb-8">
+                    By <a href="#" id="post-author-link"
+                        class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>, Published on
                     {{ $post->created_at->format('M d, Y') }}
                 </p>
 
-                <div class="pb-10 font-bold">
+                <div id="post-summary" class="pb-10 font-bold">
                     {{ $post->summary }}
                 </div>
 
-                <div>
+                <div id="post-description">
                     {!! $post->description !!}
                 </div>
-
             </div>
         </article>
+
 
         <div class="w-full flex pt-6">
             @if ($previousPost)
@@ -68,23 +70,26 @@
 
 
         <div class="w-full flex flex-col text-center md:text-left md:flex-row shadow bg-white mt-10 mb-10 p-6">
-            <div class="w-full md:w-1/5 flex justify-center md:justify-start pb-4">
-                <img src="{{ asset('storage/' . $post->user->profile_photo) }}" class="rounded-full shadow h-32 w-32">
+            <!-- Profile Photo -->
+            <div class="w-full md:w-1/5 flex justify-center md:justify-start pb-4 md:pb-0 md:mr-6">
+                <img src="{{ asset('storage/' . $post->user->profile_photo) }}"
+                    class="rounded-full shadow h-32 w-32 object-cover">
             </div>
+            <!-- User Info -->
             <div class="flex-1 flex flex-col justify-center md:justify-start">
                 <p class="font-semibold text-2xl">{{ $post->user->name }}</p>
-                <p class="pt-2">{{ $post->user->email }}</p>
-                <div class="flex items-center justify-center md:justify-start text-2xl no-underline text-blue-800 pt-4">
-                    <a class="" href="#">
+                <p class="pt-2 text-gray-600">{{ $post->user->email }}</p>
+                <div class="flex items-center justify-center md:justify-start text-2xl text-blue-800 pt-4 space-x-4">
+                    <a href="#" class="hover:text-blue-600">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a class="pl-4" href="#">
+                    <a href="#" class="hover:text-pink-600">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="pl-4" href="#">
+                    <a href="#" class="hover:text-blue-400">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a class="pl-4" href="#">
+                    <a href="#" class="hover:text-blue-700">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
@@ -96,18 +101,24 @@
 @section('sidebar')
     <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
 
-        @if (auth()->user()->id == $post->user_id)
-            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
-                <a href="{{ route('post.details', $post->slug) }}"
-                    class="w-full bg-blue-800 hover:bg-blue-600 text-white font-semibold p-2 flex items-center justify-center">
-                    Edit Post
-                </a>
-                <a href="{{ route('post.details', $post->slug) }}"
-                    class="w-full mt-2 bg-red-600 hover:bg-red-500 text-white font-semibold p-2 flex items-center justify-center">
-                    Delete Post
-                </a>
-            </div>
-        @endif
+        @auth
+            @if (auth()->user()->id == $post->user_id)
+                <div class="w-full bg-white shadow flex flex-col my-4 p-6">
+                    <button
+                        class="w-full bg-blue-800 hover:bg-blue-600 text-white font-semibold p-2 flex items-center justify-center"
+                        data-twe-toggle="modal" data-twe-target="#editModal" data-twe-ripple-init data-twe-ripple-color="light">
+                        Edit Post
+                    </button>
+                    <a href="{{ route('post.delete', $post->id) }}"
+                        class="w-full mt-4 bg-red-600 hover:bg-red-500 text-white font-semibold p-2 flex items-center justify-center"
+                        onclick="confirmation(event)">
+                        Delete Post
+                    </a>
+                </div>
+
+                @include('includes.edit-modal', ['post' => $post])
+            @endif
+        @endauth
 
 
         @if ($featuredImages->count() > 0)
@@ -143,4 +154,23 @@
 
 @endsection
 @push('js')
+    <script>
+        function confirmation(event) {
+            event.preventDefault();
+
+            var urlToRedirect = event.target.getAttribute('href');
+
+            swal({
+                title: "Are you sure you want to delete this post?",
+                text: "Once deleted, you will not be able to recover this.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willCancel) => {
+                if (willCancel) {
+                    window.location.href = urlToRedirect;
+                }
+            })
+        }
+    </script>
 @endpush

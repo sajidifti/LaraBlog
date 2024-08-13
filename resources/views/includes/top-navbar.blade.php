@@ -35,10 +35,13 @@
 
         <div class="flex items-center text-lg no-underline text-white pr-6 h-10">
             @auth
-                <a href="#">
-                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
-                        alt="Profile Picture" class="rounded-full w-10 h-10" />
-                </a>
+                <button data-twe-toggle="modal" data-twe-target="#profileModal" data-twe-ripple-init
+                    data-twe-ripple-color="light">
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="Profile Picture"
+                        class="rounded-full w-10 h-10" />
+                </button>
+
+                @include('includes.profile-modal')
             @endauth
         </div>
 
