@@ -8,28 +8,28 @@
 @section('content')
     <section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
-        <article class="flex flex-col shadow my-4">
-            <!-- Article Image -->
-            <a href="#" class="hover:opacity-75">
-                <img
-                    src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&h=500&q=80">
-            </a>
-            <div class="bg-white flex flex-col justify-start p-6">
-                <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">Technology</a>
-                <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet
-                    Dolor Sit Amet</a>
-                <p href="#" class="text-sm pb-3">
-                    By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>, Published on
-                    April 25th, 2020
-                </p>
-                <a href="#" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                    quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat.
-                    In sit amet posuere magna..</a>
-                <a href="{{ route('post.details', 'lorem-ipsum') }}" class="uppercase text-gray-800 hover:text-black">Continue Reading
-                    <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </article>
-
+        @foreach ($posts as $post)
+            <article class="flex flex-col shadow my-4">
+                <!-- Article Image -->
+                <a href="{{ route('post.details', $post->slug) }}" class="hover:opacity-75">
+                    <img src="{{ asset('storage/' . $post->image) }}">
+                </a>
+                <div class="bg-white flex flex-col justify-start p-6">
+                    <a href="{{ route('category.show', $post->category->slug) }}"
+                        class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>
+                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
+                    <p href="#" class="text-sm pb-3">
+                        By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>,
+                        Published on
+                        {{ $post->created_at->format('M d, Y') }}
+                    </p>
+                    <a href="{{ route('post.details', $post->slug) }}" class="pb-6">{{ $post->description }}</a>
+                    <a href="{{ route('post.details', $post->slug) }}"
+                        class="uppercase text-gray-800 hover:text-black">Continue Reading
+                        <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        @endforeach
 
         <!-- Pagination -->
         <div class="flex items-center py-8">
