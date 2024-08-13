@@ -24,6 +24,8 @@ Route::prefix('post')->group(function () {
     Route::get('/{post:slug}', [PostController::class, 'details'])->name('post.details');
 });
 
+Route::get('/posts', [HomeController::class, 'fetchPosts'])->name('posts.fetch');
+
 Route::get('/test-category/{category:slug}', function (Category $category) {
     return $category->name;
 });

@@ -31,13 +31,6 @@
                 <div class="relative p-4 min-[0px]:overflow-y-auto">
 
                     <div class="mb-5">
-                        <label for="base-input"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                        <input type="text" id="base-input" name="title"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </div>
-
-                    <div class="mb-5">
                         <label for="category"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category</label>
                         <select id="category" name="category"
@@ -51,47 +44,63 @@
                     </div>
 
                     <div class="mb-5">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            for="user_avatar">Upload Main Image</label>
-                        <input name="image"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Choose an
-                            appropriate image for your post.</div>
-                    </div>
-
-                    <div class="mb-5">
                         <label for="base-input"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
-                            Description</label>
-                        <input type="text" id="base-input" name="image_description"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                        <input type="text" id="base-input" name="title"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
 
                     <div class="mb-5">
-                        <label for="message"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea id="message" rows="4" name="description"
+                        <label for="summary"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summary</label>
+                        <textarea id="summary" rows="3" name="summary"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Leave a comment..."></textarea>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="description"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <textarea id="description" rows="4" name="description"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Leave a comment..."></textarea>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="image">Upload Main Image</label>
+                        <input name="image"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="image_help" id="image" type="file">
+                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="image_help">Choose an
+                            appropriate image for your post.</div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="image_description"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                            Description</label>
+                        <input type="text" id="image_description" name="image_description"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
 
                     <h1 class="text-3xl">Featured Images</h1>
                     <div class="mb-5">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            for="user_avatar">Upload Image</label>
+                            for="featured_image">Upload Image</label>
                         <div id="file-input-container">
                             <div class="file-input-wrapper mb-2">
                                 <input name="featured_images[]"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="user_avatar_help" type="file">
+                                    aria-describedby="featured_image_help" type="file">
                             </div>
                         </div>
                         <button type="button" id="add-file-input"
                             class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-4">
                             Add More Files
                         </button>
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Upload Images
+                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="featured_image_help">Upload
+                            Images
                             for the Carousel Section. You can add as many as you want.</div>
                     </div>
 
@@ -107,7 +116,7 @@
                         POST
                     </button>
 
-                    <button type="button"
+                    <button type="button" id="cancel-btn"
                         class="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-200 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400"
                         data-twe-modal-dismiss>
                         Close
@@ -125,48 +134,71 @@
         newFileInput.innerHTML = `
             <input name="featured_images[]"
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                aria-describedby="user_avatar_help" type="file">
+                aria-describedby="featured_image_help" type="file">
         `;
 
         document.getElementById('file-input-container').appendChild(newFileInput);
     });
 </script>
 
-{{-- <script type="text/javascript">
-    $(document).ready(function() {
+<script type="text/javascript">
+    @if (Route::currentRouteName() == 'home')
+        var currentPage = 1;
+        var loading = false;
 
-        $('#postForm').on('submit', function(e) {
+        function fetchPosts(page = 1) {
+            if (loading) return;
+            loading = true;
 
-            e.preventDefault();
-
-            jQuery.ajax({
-                url: $(this).attr('action'),
-                data: jQuery(this).serialize(),
-                type: 'POST',
-
-                success: function(response) {
-                    console.log(response);
-
-                    if (response.success) {
-                        toastr.success(response.message);
-                    } else {
-                        $.each(response.errors, function(key, value) {
-                            toastr.error(value);
-                        });
-                    }
+            $.ajax({
+                url: '{{ route('posts.fetch') }}',
+                method: 'GET',
+                data: {
+                    page: page
                 },
+                success: function(response) {
+                    var postsHtml = '';
+                    response.posts.data.forEach(function(post) {
+                        postsHtml += `
+                        <article class="w-full md:w-[calc(50%-1rem)] flex flex-col shadow my-4">
+                            <a href="/post/${post.slug}" class="hover:opacity-75">
+                                <img src="/storage/${post.image}" class="w-full h-auto">
+                            </a>
+                            <div class="bg-white flex flex-col justify-start p-6">
+                                <a href="/categories/${post.category.slug}"
+                                    class="text-blue-700 text-sm font-bold uppercase pb-4">${post.category.name}</a>
+                                <a href="/post/${post.slug}"
+                                    class="text-3xl font-bold hover:text-gray-700 pb-4">${post.title}</a>
+                                <p class="text-sm pb-3">
+                                    By <a href="#" class="font-semibold hover:text-gray-800">${post.user.name}</a>,
+                                    Published on ${new Date(post.created_at).toLocaleDateString()}
+                                </p>
+                                <a href="/post/${post.slug}"
+                                    class="pb-6">${post.summary.length > 50 ? post.summary.slice(0, 50) + '...' : post.summary}
+                                </a>
+                                <a href="/post/${post.slug}"
+                                    class="uppercase text-gray-800 hover:text-black">Continue Reading
+                                    <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    `;
+                    });
 
-                error: function(response) {
-                    console.log(response);
+                    $('#posts-container').append(postsHtml);
+                    currentPage++;
+                    loading = false;
                 }
             });
+        }
 
+        fetchPosts();
+
+        $('#load-more').on('click', function(e) {
+            e.preventDefault();
+            fetchPosts(currentPage);
         });
+    @endif
 
-    });
-</script> --}}
-
-<script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -176,7 +208,6 @@
     $('#postForm').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
-        // $('#file-input-error').text('');
 
         $.ajax({
             type: 'POST',
@@ -190,6 +221,19 @@
 
                 if (response.success) {
                     toastr.success(response.message);
+
+                    setTimeout(function() {
+                        $('#postForm')[0].reset();
+                        $('#cancel-btn').click();
+
+                        @if (Route::currentRouteName() == 'home')
+                            $('#posts-container').empty();
+                            currentPage = 1;
+                            loading = false;
+
+                            fetchPosts();
+                        @endif
+                    }, 2000);
                 } else {
                     $.each(response.errors, function(key, value) {
                         toastr.error(value);

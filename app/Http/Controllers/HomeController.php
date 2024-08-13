@@ -9,8 +9,17 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $posts = Post::with(['category', 'user'])->paginate(10);
-
-        return view('home.home', compact('posts'));
+        return view('home.home');
     }
+
+    public function fetchPosts(Request $request)
+    {
+        $page = $request->input('page', 1);
+        $posts = Post::with(['category', 'user'])->latest()->paginate(10, ['*'], 'page', $page);
+
+        return response()->json([
+            'posts' => $posts,
+        ]);
+    }
+
 }

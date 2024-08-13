@@ -17,7 +17,16 @@ class Post extends Model
 
     public function slugify($title)
     {
-        return Str::slug($title, '-');
+        $slug = Str::slug($title, '-');
+        $originalSlug = $slug;
+
+        $count = 1;
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . Str::random(6);
+            $count++;
+        }
+
+        return $slug;
     }
 
     public static function boot()

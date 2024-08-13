@@ -36,7 +36,7 @@
         <div class="flex items-center text-lg no-underline text-white pr-6 h-10">
             @auth
                 <a href="#">
-                    <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
                         alt="Profile Picture" class="rounded-full w-10 h-10" />
                 </a>
             @endauth
