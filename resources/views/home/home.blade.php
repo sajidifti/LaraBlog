@@ -6,22 +6,22 @@
     @include('includes.topic-nav')
 @endsection
 @section('content')
-    <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+    <section class="w-full md:w-2/3 flex flex-wrap items-center px-3 gap-4">
 
         @foreach ($posts as $post)
-            <article class="flex flex-col shadow my-4">
+            <article class="w-full md:w-[calc(50%-1rem)] flex flex-col shadow my-4">
                 <!-- Article Image -->
                 <a href="{{ route('post.details', $post->slug) }}" class="hover:opacity-75">
-                    <img src="{{ asset('storage/' . $post->image) }}">
+                    <img src="{{ asset('storage/' . $post->image) }}" class="w-full h-auto">
                 </a>
                 <div class="bg-white flex flex-col justify-start p-6">
                     <a href="{{ route('category.show', $post->category->slug) }}"
                         class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>
-                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
-                    <p href="#" class="text-sm pb-3">
+                    <a href="{{ route('post.details', $post->slug) }}"
+                        class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
+                    <p class="text-sm pb-3">
                         By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>,
-                        Published on
-                        {{ $post->created_at->format('M d, Y') }}
+                        Published on {{ $post->created_at->format('M d, Y') }}
                     </p>
                     <a href="{{ route('post.details', $post->slug) }}" class="pb-6">{{ $post->description }}</a>
                     <a href="{{ route('post.details', $post->slug) }}"
@@ -30,6 +30,8 @@
                 </div>
             </article>
         @endforeach
+
+
 
         <!-- Pagination -->
         <div class="flex items-center py-8">

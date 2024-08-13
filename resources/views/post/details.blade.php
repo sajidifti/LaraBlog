@@ -2,6 +2,9 @@
 @section('title', 'Home')
 @push('css')
 @endpush
+@section('topic-nav')
+    @include('includes.topic-nav')
+@endsection
 @section('content')
     <section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
@@ -99,6 +102,9 @@
         </div>
 
     </section>
+@endsection
+@section('sidebar')
+    @include('includes.sidebar')
 @endsection
 @push('js')
 @endpush
