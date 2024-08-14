@@ -27,6 +27,8 @@
                         {{-- Only visible to admins --}}
                         <li><a class="hover:text-gray-200 hover:underline px-4"
                                 href="{{ route('admin.dashboard') }}">Admin</a></li>
+                        <li><a class="hover:text-gray-200 hover:underline px-4"
+                                href="{{ route('admin.all-posts') }}">All Posts</a></li>
                     @endif
                 @endauth
 

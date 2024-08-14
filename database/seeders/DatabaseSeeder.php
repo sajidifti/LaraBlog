@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('11111111'),
             'user_type' => 'admin',
+            'profile_photo' => 'profile-photos/default.jpeg',
         ]);
 
         $this->call(CategorySeeder::class);

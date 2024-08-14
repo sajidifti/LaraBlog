@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             toastr()->success('Login successful');
             return redirect()->route('home');
         }
@@ -52,7 +52,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password'
+            'confirm_password' => 'required|same:password',
         ]);
 
         if ($validator->fails()) {
@@ -66,8 +66,9 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->profile_photo = 'profile-photos/default.jpeg';
 
-        if($user->save()) {
+        if ($user->save()) {
             toastr()->success('Registration successful, please login');
             return redirect()->route('login');
         }
