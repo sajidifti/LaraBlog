@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
     public function home()
     {
+        // dd(asset('storage/'. 'posts/o8sBBIHJgfjKT1TAlL4sfuL49yAxR4piQqTCvBVm.jpg'));
         return view('home.home');
     }
 

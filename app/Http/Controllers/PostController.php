@@ -171,4 +171,21 @@ class PostController extends Controller
         return redirect()->route('home');
     }
 
+    public function imageUpload(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file')->store('posts', 'public');
+
+            $fileUrl = url('storage/' . $file);
+
+            return response()->json(['location' => $fileUrl]);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
+
 }

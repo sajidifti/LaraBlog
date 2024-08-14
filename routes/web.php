@@ -38,6 +38,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/post/update/{post:slug}', [PostController::class, 'postUpdate'])->name('post.update');
 
+    Route::post('/post/image-upload', [PostController::class, 'imageUpload'])->name('post.image.upload');
+
+
     Route::get('/post/{id}/details', [PostController::class, 'getPostDetails'])->name('post.details.ajax');
 
     Route::get('/post/{id}/delete', [PostController::class, 'postDelete'])->name('post.delete');

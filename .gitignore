@@ -19,3 +19,4 @@ yarn-error.log
 /.idea
 /.vscode
 !/storage/app/public/profile-photos/default.jpeg
+resources/views/includes/tinymce.html

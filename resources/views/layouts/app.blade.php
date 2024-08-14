@@ -26,12 +26,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 
-    <!-- toastr -->
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Sweet Alert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- TinyMCE -->
+    {{-- Add your TinyMCE API key --}}
+    @include('includes.tinymce')
+
 
     <script>
         @if (Route::currentRouteName() == 'home')
@@ -153,13 +162,23 @@
 
     <!-- Scripts -->
 
-
-
-    {{-- <script>
-        $(document).ready(function() {
-            toastr.success('This is a success message!');
-        });
-    </script> --}}
+    @auth
+        <script>
+            tinymce.init({
+                selector: '.tinymce-editor',
+                formats: {
+                    h1: {
+                        block: 'h1',
+                        classes: 'text-3xl'
+                    }
+                },
+                plugins: 'image code',
+                toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+                images_upload_url: '{{ route('post.image.upload') }}',
+                automatic_uploads: true,
+            });
+        </script>
+    @endauth
 
     @stack('js')
 
