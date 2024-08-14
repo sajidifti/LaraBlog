@@ -37,6 +37,7 @@
     <script>
         var currentPage = 1;
         var loading = false;
+        var totalPostCount = 0;
 
         function fetchPosts(page = 1) {
             if (loading) return;
@@ -58,6 +59,14 @@
                         $('#load-more').hide();
                         loading = false;
                         return;
+                    }
+
+                    if (currentPage === 1) {
+                        totalPostCount = response.posts.total;
+
+                        if (totalPostCount < 10) {
+                            $('#load-more').hide();
+                        }
                     }
 
                     var postsHtml = '';
@@ -97,7 +106,11 @@
         $(window).on('pageshow', function(event) {
             if (event.originalEvent.persisted) {
                 $('#posts-container').empty();
-                $('#load-more').show();
+
+                if (totalPostCount > 10) {
+                    $('#load-more').show();
+                }
+
                 currentPage = 1;
                 fetchPosts();
             }
