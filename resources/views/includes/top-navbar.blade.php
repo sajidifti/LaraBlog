@@ -6,8 +6,8 @@
 
                 @guest
                     {{-- Only visible to guests (unauthenticated users) --}}
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('login') }}">Login</a></li>
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('register') }}">Register</a></li>
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('login') }}" wire:navigate.hover>Login</a></li>
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('register') }}" wire:navigate.hover>Register</a></li>
                 @endguest
 
                 @auth
@@ -26,9 +26,9 @@
                     @if (auth()->user()->user_type === 'admin')
                         {{-- Only visible to admins --}}
                         <li><a class="hover:text-gray-200 hover:underline px-4"
-                                href="{{ route('admin.dashboard') }}">Admin</a></li>
+                                href="{{ route('admin.dashboard') }}" wire:navigate.hover>Admin</a></li>
                         <li><a class="hover:text-gray-200 hover:underline px-4"
-                                href="{{ route('admin.all-posts') }}">All Posts</a></li>
+                                href="{{ route('admin.all-posts') }}" wire:navigate.hover>All Posts</a></li>
                     @endif
                 @endauth
 

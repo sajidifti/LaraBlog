@@ -6,7 +6,7 @@
     @include('includes.topic-nav')
 @endsection
 @section('content')
-    <section class="w-full md:w-2/3 flex flex-wrap items-center px-3 gap-4">
+    <section wire:ignore class="w-full md:w-2/3 flex flex-wrap items-center px-3 gap-4">
         <div id="posts-container" class="w-full flex flex-wrap items-center px-3 gap-4">
             {{-- Posts Will Be Loaded Here --}}
         </div>

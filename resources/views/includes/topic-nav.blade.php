@@ -4,7 +4,7 @@
             class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
 
             @foreach ($categories as $category)
-                <a href="{{ route('category.show', $category->slug) }}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">
+                <a href="{{ route('category.show', $category->slug) }}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2" wire:navigate.hover>
                     {{ $category->name }}
                 </a>
             @endforeach

@@ -9,6 +9,9 @@
     <meta name="author" content="Sajid Anam Ifti">
     <meta name="description" content="">
 
+    {{-- Add Fav Icon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/larablog_fav.ico') }}">
+
     <!-- Tailwind -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -21,6 +24,9 @@
     </style>
 
     @stack('css')
+
+    <!-- Livewire -->
+    @livewireStyles
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
@@ -82,22 +88,22 @@
                         response.posts.data.forEach(function(post) {
                             postsHtml += `
                                 <article class="w-full md:w-[calc(50%-1rem)] flex flex-col shadow my-4">
-                                    <a href="/post/${post.slug}" class="hover:opacity-75">
+                                    <a wire:navigate.hover href="/post/${post.slug}" class="hover:opacity-75">
                                         <img src="/storage/${post.image}" class="w-full h-auto">
                                     </a>
                                     <div class="bg-white flex flex-col justify-start p-6">
-                                        <a href="/categories/${post.category.slug}"
+                                        <a wire:navigate.hover href="/category/${post.category.slug}"
                                             class="text-blue-700 text-sm font-bold uppercase pb-4">${post.category.name}</a>
-                                        <a href="/post/${post.slug}"
+                                        <a wire:navigate.hover href="/post/${post.slug}"
                                             class="text-3xl font-bold hover:text-gray-700 pb-4">${post.title.length > 20 ? post.title.slice(0, 20) + '...' : post.title}</a>
                                         <p class="text-sm pb-3">
                                             By <a href="#" class="font-semibold hover:text-gray-800">${post.user.name}</a>,
                                             Published on ${new Date(post.created_at).toLocaleDateString()}
                                         </p>
-                                        <a href="/post/${post.slug}"
+                                        <a wire:navigate.hover href="/post/${post.slug}"
                                             class="pb-6">${post.summary.length > 50 ? post.summary.slice(0, 50) + '...' : post.summary}
                                         </a>
-                                        <a href="/post/${post.slug}"
+                                        <a wire:navigate.hover href="/post/${post.slug}"
                                             class="uppercase text-gray-800 hover:text-black">Continue Reading
                                             <i class="fas fa-arrow-right"></i></a>
                                     </div>
@@ -161,23 +167,36 @@
     @endauth
 
     <!-- Scripts -->
+    <!-- Livewire -->
+    @livewireScripts
 
     @auth
-        <script>
-            tinymce.init({
-                selector: '.tinymce-editor',
-                formats: {
-                    h1: {
-                        block: 'h1',
-                        classes: 'text-3xl'
-                    }
-                },
-                plugins: 'image code',
-                toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-                images_upload_url: '{{ route('post.image.upload') }}',
-                automatic_uploads: true,
+        <script data-navigate-once>
+            document.addEventListener('livewire:navigated', () => {
+                tinymce.init({
+                    selector: '.tinymce-editor',
+                    formats: {
+                        h1: {
+                            block: 'h1',
+                            classes: 'text-3xl'
+                        }
+                    },
+                    plugins: 'image code',
+                    toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+                    images_upload_url: '{{ route('post.image.upload') }}',
+                    automatic_uploads: true,
+                });
+
+                const currentUrl = window.location.pathname;
+
+                if (currentUrl === '/' || currentUrl.startsWith('/category/')) {
+                    fetchPosts();
+                }
             });
         </script>
+
+
+
     @endauth
 
     @stack('js')

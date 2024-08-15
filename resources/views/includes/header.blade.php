@@ -1,6 +1,6 @@
 <header class="w-full container mx-auto">
     <div class="flex flex-col items-center py-12">
-        <a href="{{ route('home') }}">
+        <a href="{{ route('home') }}" wire:navigate.hover>
             <img
                 src="{{ asset('assets/logo_blue.png') }}"
                 alt="Logo"
