@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home')
+@section('title', 'Dashboard')
 @push('css')
 @endpush
 @section('topic-nav')

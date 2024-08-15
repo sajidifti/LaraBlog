@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home')
+@section('title', $post->title)
 @push('css')
 @endpush
 @section('topic-nav')
@@ -144,7 +144,7 @@
                 </div>
                 <div class="flex-1 flex flex-col justify-center md:justify-start px-4">
                     <p class="font-semibold text-xl">{{ \Illuminate\Support\Str::limit($relatedPost->title, 20) }}</p>
-                    <p class="pt-2 text-gray-600">{{ $relatedPost->user->email }}</p>
+                    <p class="pt-2 text-gray-600">{{ \Illuminate\Support\Str::limit($relatedPost->summary, 80) }}</p>
                 </div>
             </a>
         @endforeach
