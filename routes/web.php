@@ -50,6 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/all-posts', [AdminController::class, 'allPosts'])->name('admin.all-posts');
-        Route::get('/fetch-posts', [HomeController::class, 'fetchPosts'])->name('admin.posts.fetch');
+        Route::get('/fetch-posts', [AdminController::class, 'fetchPosts'])->name('admin.posts.fetch');
     });
 });
