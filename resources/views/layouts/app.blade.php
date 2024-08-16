@@ -186,18 +186,18 @@
                     images_upload_url: '{{ route('post.image.upload') }}',
                     automatic_uploads: true,
                 });
-
-                const currentUrl = window.location.pathname;
-
-                if (currentUrl === '/' || currentUrl.startsWith('/category/')) {
-                    fetchPosts();
-                }
             });
         </script>
-
-
-
     @endauth
+    <script data-navigate-once>
+        document.addEventListener('livewire:navigated', () => {
+            const currentUrl = window.location.pathname;
+
+            if (currentUrl === '/' || currentUrl.startsWith('/category/')) {
+                fetchPosts();
+            }
+        });
+    </script>
 
     @stack('js')
 

@@ -39,7 +39,7 @@
         var loading = false;
         var totalPostCount = 0;
 
-        console.log('Fetch Post Details in Show Category');
+        console.log('Fetch Posts in Show Category');
 
         function fetchPosts(page = 1) {
             if (loading) return;

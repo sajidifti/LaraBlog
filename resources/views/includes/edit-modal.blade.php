@@ -64,8 +64,7 @@
                     <div class="mb-5">
                         <label for="description"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea id="description" rows="4" name="description"
-                            class="tinymce-editor"
+                        <textarea id="description" rows="4" name="description" class="tinymce-editor-edit"
                             placeholder="Leave a comment...">{{ $post->description }}</textarea>
                     </div>
 
@@ -131,6 +130,26 @@
     </div>
 </div>
 
+<script data-navigate-once>
+    document.addEventListener('livewire:navigated', () => {
+        tinymce.init({
+            selector: '.tinymce-editor-edit',
+            formats: {
+                h1: {
+                    block: 'h1',
+                    classes: 'text-3xl'
+                }
+            },
+            plugins: 'image code',
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+            images_upload_url: '{{ route('post.image.upload') }}',
+            automatic_uploads: true,
+        });
+
+        console.log('Tinymce Editor Initialized in Edit Modal');
+    });
+</script>
+
 <script>
     document.getElementById('add-file-input-edit').addEventListener('click', function() {
         var newFileInput = document.createElement('div');
@@ -155,7 +174,7 @@
                 $('#post-image-link').attr('href', '{{ url('/post') }}/' + response.post.slug);
 
                 $('#post-category-link').attr('href', '{{ url('/categories') }}/' + response.category
-                .slug);
+                    .slug);
                 $('#post-category-link').text(response.category.name);
 
                 $('#post-title-link').attr('href', '{{ url('/post') }}/' + response.post.slug);

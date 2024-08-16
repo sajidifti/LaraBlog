@@ -6,7 +6,7 @@
     @include('includes.topic-nav')
 @endsection
 @section('content')
-    <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+    <section wire:ignore class="w-full md:w-2/3 flex flex-col items-center px-3">
 
         <article class="flex flex-col shadow my-4">
             <!-- Article Image -->
@@ -100,7 +100,7 @@
     </section>
 @endsection
 @section('sidebar')
-    <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
+    <aside wire:ignore class="w-full md:w-1/3 flex flex-col items-center px-3">
 
         @auth
             @if (auth()->user()->id == $post->user_id)
@@ -205,21 +205,23 @@
         }
     </script>
 
-    <script>
-        tinymce.init({
-            selector: '.tinymce-editor',
-            formats: {
-                h1: {
-                    block: 'h1',
-                    classes: 'text-3xl'
-                }
-            },
-            plugins: 'image code',
-            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-            images_upload_url: '{{ route('post.image.upload') }}',
-            automatic_uploads: true,
-        });
+    {{-- <script data-navigate-once>
+        document.addEventListener('livewire:navigated', () => {
+            tinymce.init({
+                selector: '.tinymce-editor-edit',
+                formats: {
+                    h1: {
+                        block: 'h1',
+                        classes: 'text-3xl'
+                    }
+                },
+                plugins: 'image code',
+                toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+                images_upload_url: '{{ route('post.image.upload') }}',
+                automatic_uploads: true,
+            });
 
-        console.log('Tinymce Editor Initialized');
-    </script>
+            console.log('Tinymce Editor Initialized');
+        });
+    </script> --}}
 @endpush

@@ -34,7 +34,7 @@
                         <div class="mb-5">
                             <label for="category"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category</label>
-                            <select id="category" name="category"
+                            <select name="category"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                                 @foreach ($categories as $category)
@@ -47,14 +47,14 @@
                         <div class="mb-5">
                             <label for="base-input"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                            <input type="text" id="base-input" name="title"
+                            <input type="text" name="title"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
 
                         <div class="mb-5">
                             <label for="summary"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summary</label>
-                            <textarea id="summary" rows="3" name="summary"
+                            <textarea rows="3" name="summary"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Leave a comment..."></textarea>
                         </div>
@@ -62,7 +62,7 @@
                         <div class="mb-5">
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea id="description" rows="4" name="description" class="tinymce-editor" placeholder="Leave a comment..."></textarea>
+                            <textarea rows="4" name="description" class="tinymce-editor" placeholder="Leave a comment..."></textarea>
                         </div>
 
                         <div class="mb-5">
@@ -70,7 +70,7 @@
                                 for="image">Upload Main Image</label>
                             <input name="image"
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria-describedby="image_help" id="image" type="file">
+                                aria-describedby="image_help" type="file">
                             <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="image_help">Choose an
                                 appropriate image for your post.</div>
                         </div>
@@ -110,12 +110,12 @@
                     <div
                         class="mt-auto flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-white/10 min-[0px]:rounded-none">
 
-                        <button type="submit" id="submit-btn"
+                        <button type="submit"
                             class="inline-block mr-5 rounded bg-blue-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400">
                             POST
                         </button>
 
-                        <button type="button" id="cancel-btn"
+                        <button type="button"
                             class="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-200 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400"
                             data-twe-modal-dismiss>
                             Close
